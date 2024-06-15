@@ -1,0 +1,42 @@
+
+.barraNavTop{
+    position:relative;
+    display: block;
+    left: 0px;
+    top:0px;
+    width: 100%;
+    background-color: wheat;
+    padding: 20px 25px 10px 10%;
+    box-sizing: border-box;
+}
+
+.bigLogo{
+    max-height: 10%;
+    max-width: 20%;
+    min-width: 175px;
+}
+
+.linkBarra{
+    display: inline-block;
+    width:150px;
+    padding: 10px 25px 10px 25px;
+    text-align: center;
+    font-size: 20pt;
+    font-family:sans-serif, arial;
+    font-variant:small-caps;
+    color: black;
+}
+
+.cajaBarra{
+    display:inline-block;
+}
+
+.contenedorTransparente{
+    position: relative;
+    display: block;
+    top: 0px;
+    width: 80%;
+    margin: 10px auto 5px auto;
+    background-color: rgba(225, 225, 225, 0.85);
+    padding: 20px 30px 20px 30px;
+}

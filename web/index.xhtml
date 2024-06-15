@@ -1,12 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
-
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/templates/base.xhtml">
+    
+    <ui:define name="contenido">
+        <h:panelGroup styleClass="contenedorTransparente">
+            <p class="parrafada">Gundle es un juego inspirado en <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> y en las
+                diferentes versiones que se han hecho de este para adaptarlo a diferentes medios. POr ejemplo: <a href="https://www.gamedle.wtf">Gamedle</a>.
+                <br/> El juego consiste en intentar adivinar en el menor núemro de intentos posible un arma del juego que ha sido escogida aleatoriamente.
+                En cada intento se compararán los atributos del arma elegida y se mostrarán cuáles coinciden y cuáles no.
+            </p>
+            <br/>
+            <br/>
+            
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
