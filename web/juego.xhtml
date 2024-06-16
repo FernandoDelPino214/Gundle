@@ -8,10 +8,113 @@
         template="/WEB-INF/templates/base.xhtml">
     
     <ui:define name="contenido">
-        <h:panelGroup styleClass="contenedorTransparente">
-            <h:panelGroup>
-                <h:commandButton value="Nueva Partida"/>
-            </h:panelGroup>
-        </h:panelGroup>
+        <h:form id="formJuego">
+            <h:panelGroup styleClass="contenedorTransparente">
+                <h:panelGroup style="width: 100%; display:block;" rendered="#{!juegoControlador.partidaActiva}">
+                    <h:panelGroup styleClass="filaContenedor">
+                        <h:panelGroup style="width:min-content;text-align: center;" styleClass="cajaCentrada">
+                            <h:commandButton styleClass="botonNuevaPartida" action="#{juegoControlador.iniciarPartida()}" value="Nueva Partida"/>
+                        </h:panelGroup>
+                        
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup style="width: 100%; display: block;">
+                    <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva}">
+                        <h:inputText value="#{juegoControlador.campoFiltro}" onchange="#{juegoControlador.filtrarArmas()}"/>
+                        <h:dataTable value="#{juegoControlador.listaSeleccArma}" var="arma">
+                            <h:column>
+                                <p:graphicImage url="/resources/armaImg/#{arma.imgRuta}" styleClass="imgSeleccion"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                <h:outputText value="#{arma.nombre}"/>
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="Adivinar" action="#{juegoControlador.adivinar(arma)}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva}">
+                        <h:dataTable value="#{juegoControlador.listaIntentos}" var="armaI">
+                            <h:column>
+                                <h:panelGroup styleClass="celdaIntento">
+                                    <p:graphicImage alt="Foto del arma" url="/resources/armaImg/#{armaI.imgRuta}" styleClass="imgIntento"/>   
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                <h:panelGroup styleClass="celdaIntento">
+                                    <h:outputText value="#{armaI.nombre}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Calidad
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloCalidad(armaI.calidad)} celdaIntento">
+                                    <h:outputText value="#{armaI.calidad}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Tipo
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloTipo(armaI.tipo)} celdaIntento">
+                                    <h:outputText value="#{armaI.tipo.nombre}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Clase
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloClase(armaI.clase)} celdaIntento">
+                                    <h:outputText value="#{armaI.clase.nombre}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Colores
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloColores(armaI.colorList)} celdaIntento">
+                                    <p:repeat value="#{armaI.colorList}" var="color">
+                                        <h:outputText value="#{color.nombre}"/><br/>
+                                    </p:repeat>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Cargador 
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloCargador(armaI.cargador)} celdaIntento">
+                                    <h:outputText value="#{armaI.cargador != null ? armaI.cargador : '-'}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Munición
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloMunicion(armaI.municion)} celdaIntento">
+                                    <h:outputText value="#{armaI.municion != null ? armaI.municion : '&infin;'}"/>
+                                </h:panelGroup>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Proyectiles
+                                </f:facet>
+                                <h:panelGroup styleClass="#{juegoControlador.estiloProyectiles(armaI.proyectiles)} celdaIntento">
+                                    <h:outputText value="#{armaI.proyectiles}"/>
+                                </h:panelGroup>
+                            </h:column>
+                        </h:dataTable> 
+                    </h:panelGroup>    
+                </h:panelGroup>
+                
+            </h:panelGroup>    
+        </h:form>
+        
     </ui:define>
 </ui:composition>

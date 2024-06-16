@@ -40,3 +40,84 @@
     background-color: rgba(225, 225, 225, 0.85);
     padding: 20px 30px 20px 30px;
 }
+
+.filaContenedor{
+    display: flex;
+    box-sizing: border-box;
+    width:100%;
+    padding: 25px 15px 10px 15px;
+    overflow:auto auto;
+}
+
+.cajaCentrada{
+    margin: auto;
+}
+
+.botonNuevaPartida{
+    width: 300px;
+    height: 65px;
+    font-size: 30px;
+    border: darkgrey 4px groove;
+    font-family: "Power Red and Green", serif;
+    
+}
+
+.seccionContenedor{
+    display: inline-block;
+    box-sizing: border-box;
+    max-height: 500px;
+    padding: 25px 15px 10px 15px;
+    overflow:auto auto;
+}
+
+.celdaIntento{
+    display: block;
+    box-sizing: border-box;
+    padding: 8px 5px 8px 8px;
+    height: 100px;
+    max-width: 120px;
+    border: whitesmoke 3px solid;
+    border-radius: 3px;
+}
+
+.imgIntento{
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 50%;
+    min-height: 50%;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.imgSeleccion{
+    max-width: 80px;
+    max-height: 50px;
+    min-height: 30px;
+}
+
+.celdaCorrecto{
+    background-color: lightgreen;
+}
+
+.celdaParcial{
+    background-color: gold;
+}
+
+.celdaIncorrecto{
+    background-color: red;
+}
+
+.celdaMayor{
+    background-color: red;
+    background-image: url(../img/celdaMayor.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.celdaMenor{
+    background-color: red;
+    background-image: url(../img/celdaMenor.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}

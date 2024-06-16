@@ -14,12 +14,12 @@
     <h:body style="margin: 0px;">
         <h:form id="formBarra">
             <h:panelGroup styleClass="barraNavTop">
-                <h:graphicImage url="resources/img/Enter_the_Gungeon_Logo.png" styleClass="bigLogo"/>
-                <h:commandLink styleClass="linkBarra">
+                <h:graphicImage url="/resources/img/Enter_the_Gungeon_Logo.png" styleClass="bigLogo"/>
+                <h:link styleClass="linkBarra" outcome="juego.xhtml">
                     <h:panelGroup styleClass="cajaBarra">
-                        <h:outputText value="Nueva partida"/>
+                        <h:outputText value="Jugar"/>
                     </h:panelGroup>
-                </h:commandLink>
+                </h:link>
                 <h:commandLink styleClass="linkBarra">
                     <h:panelGroup styleClass="cajaBarra">
                         <h:outputText value="Leyenda"/>
