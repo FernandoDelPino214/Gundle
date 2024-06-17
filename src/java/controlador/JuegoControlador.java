@@ -29,6 +29,7 @@ public class JuegoControlador implements Serializable{
     private List<Arma> listaSeleccArma;
     private List<Arma> listaIntentos;
     private String campoFiltro;
+    private boolean finalizado;
     private boolean victoria;
     
     
@@ -45,7 +46,7 @@ public class JuegoControlador implements Serializable{
     public void init(){
         emf = Persistence.createEntityManagerFactory("GundlePU");
         partidaActiva = false;
-        victoria = false;
+        finalizado = false;
         listaArmas = listadoArmas();
         listaSeleccArma = new ArrayList(listaArmas);
     }
@@ -57,6 +58,7 @@ public class JuegoControlador implements Serializable{
         partidaActiva = true;
         listaIntentos = new ArrayList();
         armaJuego = armaAleatoria();
+        finalizado = false;
         victoria = false;
     }
     
@@ -66,9 +68,15 @@ public class JuegoControlador implements Serializable{
         
         listaIntentos.add(arma);
         if(arma.equals(armaJuego)){
+            finalizado = true;
             victoria = true;
-            System.out.println("************** VICTORIA BITCHES ******************");
+
         }
+    }
+    
+    public void rendirse(){
+        finalizado = true;
+        victoria = false;
     }
     
     public Arma armaAleatoria(){
@@ -197,7 +205,7 @@ public class JuegoControlador implements Serializable{
         }  
         
         if(armaJuego.getProyectiles()== null){
-            return MENOR;
+            return INCORREC;
         }
         
         if(armaJuego.getProyectiles().intValue() == valor.intValue())
@@ -287,6 +295,22 @@ public class JuegoControlador implements Serializable{
 
     public void setPrincipalCtrl(PrincipalControlador principalCtrl) {
         this.principalCtrl = principalCtrl;
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
+    }
+
+    public boolean isVictoria() {
+        return victoria;
+    }
+
+    public void setVictoria(boolean victoria) {
+        this.victoria = victoria;
     }
     
     

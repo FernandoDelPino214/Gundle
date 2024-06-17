@@ -11,25 +11,126 @@
         <h:outputStylesheet name="css/estilosGeneral.css"/>
         
     </h:head>
-    <h:body style="margin: 0px;">
+    <h:body styleClass="fondoContenido"
+        style="margin: 0px; height: 100%; background-image: url(#{request.contextPath}/resources/img/#{prplControlador.rutaFondo});">
         <h:form id="formBarra">
             <h:panelGroup styleClass="barraNavTop">
                 <h:graphicImage url="/resources/img/Enter_the_Gungeon_Logo.png" styleClass="bigLogo"/>
                 <h:link styleClass="linkBarra" outcome="juego.xhtml">
-                    <h:panelGroup styleClass="cajaBarra">
+                    <h:panelGroup style="font-size: 25pt;" styleClass="cajaBarra">
                         <h:outputText value="Jugar"/>
                     </h:panelGroup>
                 </h:link>
-                <h:commandLink styleClass="linkBarra">
+                <h:link styleClass="linkBarra" outcome="index.xhtml">
+                    <h:panelGroup styleClass="cajaBarra">
+                        <h:outputText value="Inicio"/>
+                    </h:panelGroup>
+                </h:link>
+                <h:commandLink action="#{prplControlador.mostrarModalInfo()}" styleClass="linkBarra">
                     <h:panelGroup styleClass="cajaBarra">
                         <h:outputText value="Leyenda"/>
                     </h:panelGroup>
                 </h:commandLink>
+                <h:commandLink action="#{prplControlador.cambiarFondo()}" styleClass="linkBarra">
+                    <h:panelGroup style="font-size: 18pt;" styleClass="cajaBarra">
+                        <h:outputText value="Cambiar fondo"/>
+                    </h:panelGroup>
+                </h:commandLink>
             </h:panelGroup>    
         </h:form>
-        <h:panelGroup>
+        <h:panelGroup layout="block">
             <ui:insert name="contenido"/>    
         </h:panelGroup>
     </h:body>
+    <p:dialog widgetVar="leyendaDialog" width="1200px" height="650px" fitViewport="true" closable="true">
+        <h:panelGroup style="width: 80%;height: 75%; overflow-x:scroll;">
+            <h:panelGroup styleClass="filaContenedor parrafada" style="display: block;">
+                <h3>Estadísticas:</h3>
+                <p>
+                Las estadísticas de las armas que se comparan son: <br/>
+                <ul>
+                    <li>
+                        <b>Calidad:</b> La calidad de las armas va desde la <b>D</b> hasta la <b>S</b>, estando esta última por encima de la <b>A</b>. Esto marca la
+                        rareza del arma y de que tipo de cofre caerá. Las pistolas iniciales de cada personaje (no incluye Blasphemy) y otra excepción no tienen calidad,
+                        ya que no pueden aparecer como recompensas. Estas se marcan con un guión.
+                    </li><br/>
+                    <li>
+                        <b>Tipo:</b> El tipo de un arma es cómo dispara al pulsarse el gatillo.
+                        <ul>
+                            <li>
+                                <b>Semiautomática:</b> Cada vez que se pulsa el gatillo son diparadas una o más balas a la vez. Si se mantiene el gatillo el personaje
+                                disparará a un ritmo constante, pero se puede obtener más cadencia disparando de forma manual.
+                            </li>
+                            <li>
+                                <b>Automática:</b> Mantener presionado el gatillo hará que el arma dispare continuamente.
+                            </li>
+                            <li>
+                                <b>Ráfagas:</b> Pulsar el gatillo hará que se disparen varias veces de forma sucesiva, por lo demás actua como un arma semiautomática.
+                            </li>
+                            <li>
+                                <b>Carga:</b> Al mantener el gatillo se carga un disparo que es disparado al soltar el gatillo. Algunas armas permiten disparar sin
+                                cargar del todo el disparo (Ej. Dungeon Eagle) mientras que otras cancelaran el disparo si no está completamente cargado (Ej. Blunderbuss).
+                            </li>
+                            <li>
+                                <b>Rayo:</b> Al mantener el gatillo se dispara continuamente un láser, torrente de agua... en vez de proyectiles tradicionales.
+                            </li>
+                        </ul>
+                    </li><br/>
+                    <li>
+                        <b>Clase:</b> Las clases son una mecánica oculta del juego que clasifica las armas y cuya función es evitar que recibas demasiadas armas parecidas.
+                        Al llevar un arma de un tipo se reducen las posibilidades de que aparezca otra del mismo tipo. Cada arma es parte de una única clase. Las clases son:<br/>
+                        Beam, Charge, Charm, Explosive, Fire, Fullauto, Ice, Pistol, Poison, Rifle, Shitty, Shotgun, Silly y por último None (Ninguna).
+                    </li><br/>
+                    <li>
+                        <b>Cargador:</b> Cuánta munición tiene el arma en su cargador. Si el arma objetivo no tiene cargador y no necesita ser recargada en todos los intentos
+                        aparecerá que el arma elegida tiene un cargador más grande que el arma objetivo.
+                    </li><br/>
+                    <li>
+                        <b>Munición:</b> Cuánta munición del arma puedes llevar. Si el arma objetivo tiene munición infinita en todos los intentos aparecerá que el arma elegida
+                        tiene menos munición máxima que el arma objetivo.
+                    </li><br/>
+                    <li>
+                        <b>Proyectiles:</b> Cuantos proyectiles dispara a la vez un arma o cuántas veces es disparada un arma en una sola ráfaga. La mayoría de armas disparan
+                        un proyectil, mientras que las armas de ráfagas y las escopetas disparan una cantidad mayor. Si un arma dispara una cantidad variable de proyectiles
+                        aparecerá con la estadística "Variable". <br/>
+                        <ul><li><b>Notas:</b>
+                        <b>Bullet</b> y <b>Shell</b> disparan uno y tres proyectiles respectivamente (que disparan más proyectiles). <b>Crown of Guns</b> dispara 3 balas en 
+                        diferentes direcciones con una gran cadencia. <b>M16</b> usa las estadísticas normales, por lo que dispara 3 proyectiles.
+                            </li></ul>
+                    </li>
+                </ul>
+                <b>Notas:</b>
+                <ul>
+                    <li>
+                        Las armas que cambian en cada recarga aparecen como un solo arma si el modo alternativo es sólo uno o pocos disparos diferentes (Ej. M16, Combined
+                        Rifle) o si el arma actúa de forma muy parecida (Ej. Triple Crosbow).
+                    </li>
+                    <li>
+                        Si un arma tiene dos modos de disparo bien definidos aparecerán como armas diferentes (Ej. Shellegun, Trick Gun).
+                    </li>
+                </ul>
+                </p>
+            </h:panelGroup>
+            <h:panelGroup styleClass="filaContenedor parrafada" style="display: block;">
+
+                <h3>Colores</h3>
+                <p style="parrafada">
+                    El color rojo marca que el valor es completamente incorrecto. En el caso de la cantidad de munición por cargador y en el caso de la munición máxima
+                    también aparecerá una flecha indicando si la cantidad del arma objetivo es mayor (flecha hacia arriba) o menor (flecha hacia abajo). <br/>
+                    El color amarillo indica que parte del valor es correcto, pero no es completamente correcto. En el caso de los colores significa que al menos uno de
+                    los colores coincide con los colores del arma objetivo, pero no todos. En el caso de que el arma seleccionada tenga más colores que el arma objetivo
+                    la celda será marcada como parcialmente correcta, no completamente correcta. <br/>
+                    El color verde significa que el dato es correcto y concide exactamente con el arma objetivo.
+                </p>
+                <h:panelGroup>
+                    <h:panelGroup styleClass="celdaIncorrecto celdaIntento" style="width:100px;height:100px;display: inline-block"/>
+                    <h:panelGroup styleClass="celdaMayor celdaIntento" style="width:100px;height:100px;display: inline-block"/>
+                    <h:panelGroup styleClass="celdaParcial celdaIntento" style="width:100px;height:100px;display: inline-block"/>
+                    <h:panelGroup styleClass="celdaCorrecto celdaIntento" style="width:100px;height:100px;display: inline-block"/>    
+                </h:panelGroup>
+            </h:panelGroup>    
+        </h:panelGroup>
+        
+    </p:dialog>
         
 </html>

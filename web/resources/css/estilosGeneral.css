@@ -53,6 +53,10 @@
     margin: auto;
 }
 
+.parrafada{
+    line-height: 1.5em;
+}
+
 .botonNuevaPartida{
     width: 300px;
     height: 65px;
@@ -70,15 +74,7 @@
     overflow:auto auto;
 }
 
-.celdaIntento{
-    display: block;
-    box-sizing: border-box;
-    padding: 8px 5px 8px 8px;
-    height: 100px;
-    max-width: 120px;
-    border: whitesmoke 3px solid;
-    border-radius: 3px;
-}
+
 
 .imgIntento{
     max-width: 100%;
@@ -88,12 +84,25 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
+    image-rendering:pixelated;
 }
 
 .imgSeleccion{
     max-width: 80px;
     max-height: 50px;
     min-height: 30px;
+    image-rendering:crisp-edges;
+}
+
+.celdaIntento{
+    display: block;
+    box-sizing: border-box;
+    padding: 8px 5px 8px 8px;
+    height: 100px;
+    max-width: 120px;
+    border: whitesmoke 3px solid;
+    border-radius: 3px;
+    text-align: center;
 }
 
 .celdaCorrecto{
@@ -105,19 +114,44 @@
 }
 
 .celdaIncorrecto{
-    background-color: red;
+    background-color: #e22;
 }
 
 .celdaMayor{
-    background-color: red;
+    background-color: #e22;
     background-image: url(../img/celdaMayor.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 .celdaMenor{
-    background-color: red;
+    background-color: #e22;
     background-image: url(../img/celdaMenor.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+.ui-dialog-content{
+    background-color: rgba(255, 245, 200, 0.92) !important;
+}
+
+.ui-dialog{
+    background-color: transparent;
+}
+
+.botonBasic{
+    background-color: darkgray !important;    
+    color: black;
+    padding: 2px;
+}
+
+.fondoContenido{
+    background-attachment: fixed;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-color: #333;
+    image-rendering:pixelated;
+    width:100%;
+    background-repeat:no-repeat;
+    
 }

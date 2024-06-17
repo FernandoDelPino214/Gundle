@@ -5,7 +5,8 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui"
-        template="/WEB-INF/templates/base.xhtml">
+        template="/WEB-INF/templates/base.xhtml"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:define name="contenido">
         <h:form id="formJuego">
@@ -18,9 +19,17 @@
                         
                     </h:panelGroup>
                 </h:panelGroup>
+                <h:panelGroup style="width: 100%; display:block;" rendered="#{juegoControlador.partidaActiva and !juegoControlador.finalizado}">
+                    <h:panelGroup styleClass="filaContenedor">
+                        <b>Nº de intentos: <h:outputText value="#{juegoControlador.listaIntentos.size()}"/></b>
+                        <p:commandButton styleClass="botonBasic" style="margin-left: 30px;" value="Rendirse" oncomplete="PF('rendirseModal').show()"/>
+                    </h:panelGroup>
+                </h:panelGroup>
                 <h:panelGroup style="width: 100%; display: block;">
-                    <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva}">
-                        <h:inputText value="#{juegoControlador.campoFiltro}" onchange="#{juegoControlador.filtrarArmas()}"/>
+                    <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva and !juegoControlador.finalizado}">
+                        <b><h:outputLabel for="inputFiltro" value="Filtrar por nombre:"/></b><br/>
+                        <h:inputText id="inputFiltro" value="#{juegoControlador.campoFiltro}" onchange="#{juegoControlador.filtrarArmas()}"/>
+                        <hr/>
                         <h:dataTable value="#{juegoControlador.listaSeleccArma}" var="arma">
                             <h:column>
                                 <p:graphicImage url="/resources/armaImg/#{arma.imgRuta}" styleClass="imgSeleccion"/>
@@ -36,11 +45,35 @@
                             </h:column>
                         </h:dataTable>
                     </h:panelGroup>
+                    <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva and juegoControlador.finalizado}">
+                        <h:panelGroup rendered="#{juegoControlador.victoria}">
+                            <h2>¡Victoria!</h2>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!juegoControlador.victoria}">
+                            <h2>¡Derrota! :(</h2>
+                        </h:panelGroup>
+                        <hr/>
+                        <h:panelGroup styleClass="cajaCentrada">
+                            <p>El arma correcta era:</p>
+                            <h:panelGroup styleClass="celdaIntento" style="height: auto;">
+                                <p:graphicImage url="/resources/armaImg/#{juegoControlador.armaJuego.imgRuta}" styleClass="imgIntento"/>
+                                <h3><h:outputText value="#{juegoControlador.armaJuego.nombre}"/> </h3>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{juegoControlador.victoria}">
+                            <p style="parrafada">Necesitaste <b><h:outputText value="#{juegoControlador.listaIntentos.size()}"/>  intentos</b> para encontrarla.</p>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!juegoControlador.victoria}">
+                            <p style="parrafada">Utilizaste <b><h:outputText value="#{juegoControlador.listaIntentos.size()}"/>  intentos</b>.</p>
+                        </h:panelGroup>
+                        <br/>
+                        <h:commandButton styleClass="botonNuevaPartida" action="#{juegoControlador.iniciarPartida()}" value="Nueva Partida"/>
+                    </h:panelGroup>
                     <h:panelGroup styleClass="seccionContenedor" rendered="#{juegoControlador.partidaActiva}">
                         <h:dataTable value="#{juegoControlador.listaIntentos}" var="armaI">
                             <h:column>
                                 <h:panelGroup styleClass="celdaIntento">
-                                    <p:graphicImage alt="Foto del arma" url="/resources/armaImg/#{armaI.imgRuta}" styleClass="imgIntento"/>   
+                                    <p:graphicImage url="/resources/armaImg/#{armaI.imgRuta}" styleClass="imgIntento"/>   
                                 </h:panelGroup>
                             </h:column>
                             <h:column>
@@ -113,7 +146,15 @@
                     </h:panelGroup>    
                 </h:panelGroup>
                 
-            </h:panelGroup>    
+            </h:panelGroup>
+            <p:dialog widgetVar="rendirseModal" width="400" height="20  0" resizable="false" modal="true">
+                <h:panelGroup style="padding:20px;">
+                    <p style="parrafada"><b>¿Estás seguro de que quieres rendirte?</b></p><br/>
+                    <p:commandButton styleClass="botonBasic" value="Cancelar" oncomplete="PF('rendirseModal').hide()" update=":formJuego:"/>
+                    <p:commandButton value="Rendirse" oncomplete="PF('rendirseModal').hide()" styleClass="botonBasic"
+                                     action="#{juegoControlador.rendirse()}" update=":formJuego:"/>
+                </h:panelGroup>
+            </p:dialog>
         </h:form>
         
     </ui:define>
