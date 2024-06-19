@@ -57,6 +57,10 @@
     line-height: 1.5em;
 }
 
+.textoIndex{
+    font-size:14pt;
+}
+
 .botonNuevaPartida{
     width: 300px;
     height: 65px;

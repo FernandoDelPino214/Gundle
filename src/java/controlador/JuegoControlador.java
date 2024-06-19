@@ -86,8 +86,8 @@ public class JuegoControlador implements Serializable{
         int numArmas = listaArmas.size();
         Arma arma = null;
         do{
-            int id = (int) Math.floor(Math.random() * numArmas + 1);
-            arma = armaPorId(id);
+            int id = (int) Math.floor(Math.random() * numArmas);
+            arma = listaArmas.get(id);
         }
         while(arma == null);
         return arma;

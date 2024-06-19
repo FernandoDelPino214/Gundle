@@ -9,13 +9,21 @@
     
     <ui:define name="contenido">
         <h:panelGroup styleClass="contenedorTransparente">
-            <p class="parrafada">Gundle es un juego inspirado en <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> y sus
+            <p class="parrafada textoIndex">Gundle es un juego inspirado en <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> y sus
                 variaciones (por ejemplo: <a href="https://www.gamedle.wtf">Gamedle</a>) que utiliza la temática de Enter the Gungeon.
-                <br/> El juego consiste en intentar adivinar en el menor núemro de intentos posible un arma del juego que ha sido escogida aleatoriamente,
-                y utilizando la información que te dan en cada intento tratar de averiguar el arma en cuestión.
+                <br/> El juego consiste en intentar adivinar en el menor núemro de intentos posible un arma del juego que ha sido escogida aleatoriamente
+                utilizando la información recibida tras intento. En cada intento las estadísticas del arma elegida se compararán con la del arma aleatoria
+                para acercarte cada vez más a descubrirla.
             </p>
             <br/>
-            <br/>
+            <h:panelGroup styleClass="filaContenedor">
+                <h:graphicImage url="/resources/img/imgGameplay.png" width="60%"/>
+                <p class="parrafada textoIndex" style="margin-left: 8px;">
+                    Enter the Gungeon es un rougelike en el que debes abrirte paso a través de la Armazmorra como diferentes personajes para intentar cambiar
+                    tu pasado. El juego tiene un gran énfasis en sus armas, las cuales incluyen desde pistolas convencionales hasta cañones de riel, pasando
+                    por una bala que dispara pistolas o un bate capaz de batear los disparos enemigos.
+                </p>
+            </h:panelGroup>
             
         </h:panelGroup>
     </ui:define>
